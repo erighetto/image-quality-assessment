@@ -81,10 +81,9 @@ class PhotoAnalyzer:
         for root, _, files in os.walk(self.input_folder):
             for img_name in files:
                 if img_name.lower().endswith('.jpg'):
-                    img_path = os.path.join(root, img_name)
-                    image_path = os.path.join(self.input_folder, img_path)
+                    image_path = os.path.join(root, img_name)
                     score = self.analyze_photo(image_path)
-                    photo_scores.append((img_path, score))
+                    photo_scores.append((image_path, score))
         
         # Ordina le foto per punteggio
         photo_scores.sort(key=lambda x: x[1], reverse=True)
@@ -99,11 +98,11 @@ class PhotoAnalyzer:
                 shutil.copy2(src, dst)
                 print(f"Copiata {filename} con punteggio {score:.2f}")
 
-# Esempio di utilizzo
+# Main
 if __name__ == "__main__":
-    input_folder = "/Users/erighetto/Library/CloudStorage/Dropbox/Photos/2025"
+    input_folder = "/Users/erighetto/Library/CloudStorage/Dropbox/Photos"
     output_folder = "/Users/erighetto/Pictures/Selections"
     os.makedirs(output_folder, exist_ok=True)
     
     analyzer = PhotoAnalyzer(input_folder, output_folder)
-    analyzer.process_folder(threshold=1.3)  # Modifica la soglia in base alle tue esigenze
+    analyzer.process_folder(threshold=1.32)
